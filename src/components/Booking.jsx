@@ -1,231 +1,197 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
+
+const initialForm = {
+  name: "",
+  phone: "",
+  address: "",
+  serviceType: "Cuci AC (mulai Rp 75.000)",
+  acCount: "1 unit",
+  date: "",
+  time: "Pagi (08.00—12.00)",
+  notes: "",
+};
 
 export function Booking() {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    serviceType: "Cuci / Cleaning AC (Rp 75.000)",
-    acCount: "1 Unit",
-    date: "",
-    time: "Pagi (08.00 - 12.00)",
-    notes: "",
-  });
+  const [formData, setFormData] = useState(initialForm);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleChange = (event) => {
+    setFormData((current) => ({
+      ...current,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
     setSubmitted(true);
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   return (
-    <div className="py-16 bg-slate-50 dark:bg-slate-950 min-h-screen flex items-center justify-center">
-      <div className="max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 sm:p-12 shadow-xl">
-          <div className="text-center space-y-3 mb-10">
-            <span className="bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-              Pemesanan Online Cepat
-            </span>
-            <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
-              Formulir Booking Jasa AC
-            </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-sm max-w-lg mx-auto">
-              Silakan isi data diri dan detail kebutuhan servis Anda. Tim admin
-              kami akan segera menghubungi Anda untuk konfirmasi jadwal.
+    <main className="booking-page">
+      <div className="booking-wrap">
+        <section className="booking-card">
+          <div className="booking-heading">
+            <p className="eyebrow">SATU LANGKAH LAGI MENUJU RUANGAN ADEM</p>
+            <h1>Atur jadwal teknisi</h1>
+            <p>
+              Isi detail di bawah. Tim kami akan menghubungi Anda untuk
+              memastikan waktu kunjungan dan kebutuhan servis.
             </p>
           </div>
 
           {submitted ? (
-            <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-8 text-center space-y-6">
-              <div className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg shadow-emerald-600/30">
-                ✓
+            <div className="booking-success">
+              <div className="success-icon">
+                <Check size={25} />
               </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-emerald-800 dark:text-emerald-300">
-                  Booking Berhasil Dikirim!
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm max-w-md mx-auto">
-                  Terima kasih{" "}
-                  <span className="font-semibold text-slate-800 dark:text-white">
-                    {formData.name}
-                  </span>
-                  . Jadwal untuk{" "}
-                  <span className="font-semibold text-slate-800 dark:text-white">
-                    {formData.serviceType}
-                  </span>{" "}
-                  pada tanggal{" "}
-                  <span className="font-semibold text-slate-800 dark:text-white">
-                    {formData.date || "secepatnya"}
-                  </span>{" "}
-                  telah kami terima.
-                </p>
-              </div>
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <h2>Permintaan jadwal diterima</h2>
+              <p>
+                Terima kasih, <strong>{formData.name}</strong>. Kami mencatat
+                permintaan <strong>{formData.serviceType}</strong> pada{" "}
+                <strong>{formData.date || "secepatnya"}</strong>. Tim kami akan
+                menghubungi Anda untuk konfirmasi.
+              </p>
+              <div className="success-actions">
                 <a
-                  href={`https://wa.me/6281234567890?text=Halo%20AirCool%20Pro,%20saya%20atas%20nama%20${encodeURIComponent(formData.name)}%20telah%20mengisi%20form%20booking%20untuk%20${encodeURIComponent(formData.serviceType)}.`}
+                  className="button button-dark"
+                  href={`https://wa.me/6281234567890?text=${encodeURIComponent(`Halo AirCool Pro, saya ${formData.name} sudah mengisi permintaan servis ${formData.serviceType}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all text-center"
                 >
-                  Konfirmasi via WhatsApp Sekarang
+                  Konfirmasi via WhatsApp <ArrowRight size={16} />
                 </a>
                 <button
-                  onClick={() => setSubmitted(false)}
-                  className="w-full sm:w-auto bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-semibold px-6 py-3 rounded-xl transition-all text-center"
+                  className="button button-outline"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData(initialForm);
+                  }}
                 >
-                  Buat Pesanan Baru
+                  Buat permintaan baru
                 </button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Nama Lengkap *
-                  </label>
+            <form onSubmit={handleSubmit} className="booking-form">
+              <div className="form-grid">
+                <label>
+                  Nama lengkap *
                   <input
                     type="text"
                     name="name"
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Contoh: Budi Santoso"
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    placeholder="Nama Anda"
+                    autoComplete="name"
                   />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Nomor WhatsApp / HP *
-                  </label>
+                </label>
+                <label>
+                  Nomor WhatsApp *
                   <input
                     type="tel"
                     name="phone"
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="Contoh: 081234567890"
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    placeholder="08xx xxxx xxxx"
+                    autoComplete="tel"
                   />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                  Alamat Lengkap Pengerjaan *
                 </label>
+              </div>
+              <label>
+                Alamat pengerjaan *
                 <textarea
                   name="address"
                   required
                   rows="3"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, patokan lokasi..."
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                ></textarea>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Pilih Jenis Layanan *
-                  </label>
+                  placeholder="Jalan, nomor rumah, kelurahan, dan patokan lokasi"
+                  autoComplete="street-address"
+                />
+              </label>
+              <div className="form-grid">
+                <label>
+                  Jenis layanan *
                   <select
                     name="serviceType"
                     value={formData.serviceType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   >
-                    <option>Cuci / Cleaning AC (Rp 75.000)</option>
-                    <option>Isi / Tambah Freon (Mulai Rp 150.000)</option>
+                    <option>Cuci AC (mulai Rp 75.000)</option>
+                    <option>Isi / tambah freon (mulai Rp 150.000)</option>
                     <option>
-                      Perbaikan AC Bocor / Kurang Dingin (Mulai Rp 100.000)
+                      Perbaikan bocor / kurang dingin (mulai Rp 100.000)
                     </option>
-                    <option>Bongkar Pasang AC (Mulai Rp 250.000)</option>
+                    <option>Bongkar pasang AC (mulai Rp 250.000)</option>
                     <option>
-                      Perbaikan Modul / Kelistrikan (Mulai Rp 120.000)
+                      Perbaikan modul / kelistrikan (mulai Rp 120.000)
                     </option>
-                    <option>Overhaul / Cuci Besar (Mulai Rp 350.000)</option>
+                    <option>Overhaul / cuci besar (mulai Rp 350.000)</option>
                   </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Jumlah Unit AC *
-                  </label>
+                </label>
+                <label>
+                  Jumlah unit *
                   <select
                     name="acCount"
                     value={formData.acCount}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   >
-                    <option>1 Unit</option>
-                    <option>2 Unit</option>
-                    <option>3 Unit</option>
-                    <option>4 Unit</option>
-                    <option>5+ Unit (Gedung/Kantor)</option>
+                    <option>1 unit</option>
+                    <option>2 unit</option>
+                    <option>3 unit</option>
+                    <option>4 unit</option>
+                    <option>5+ unit</option>
                   </select>
-                </div>
+                </label>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Tanggal Kedatangan *
-                  </label>
+              <div className="form-grid">
+                <label>
+                  Tanggal kunjungan *
                   <input
                     type="date"
                     name="date"
                     required
                     value={formData.date}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Waktu Kedatangan *
-                  </label>
+                </label>
+                <label>
+                  Waktu kunjungan *
                   <select
                     name="time"
                     value={formData.time}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   >
-                    <option>Pagi (08.00 - 12.00)</option>
-                    <option>Siang (13.00 - 16.00)</option>
-                    <option>Sore / Malam (16.00 - 20.00)</option>
+                    <option>Pagi (08.00—12.00)</option>
+                    <option>Siang (13.00—16.00)</option>
+                    <option>Sore (16.00—20.00)</option>
                   </select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                  Catatan Tambahan (Opsional)
                 </label>
+              </div>
+              <label>
+                Catatan untuk teknisi
                 <textarea
                   name="notes"
                   rows="2"
                   value={formData.notes}
                   onChange={handleChange}
-                  placeholder="Merk AC, keluhan khusus seperti AC berisik atau netes air..."
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                ></textarea>
-              </div>
-
+                  placeholder="Contoh: AC netes air, merek AC, atau keluhan lainnya"
+                />
+              </label>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:opacity-95 text-white font-bold py-4 rounded-xl shadow-xl shadow-cyan-600/20 transition-all text-center"
+                className="button button-dark booking-submit"
               >
-                Kirim Booking Servis AC Sekarang
+                Kirim permintaan jadwal <ArrowRight size={16} />
               </button>
             </form>
           )}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
