@@ -1,65 +1,69 @@
 # AirCool Pro
 
-Landing page dan form booking untuk jasa servis AC panggilan. Proyek ini dibuat dengan React + Vite dan fokus pada pengalaman pengguna yang sederhana, cepat, dan mudah diproses dari ponsel.
+Landing page dan alur permintaan jadwal untuk layanan servis AC panggilan. Dibangun dengan React 19, Vite, Tailwind CSS 4, dan Lucide React.
 
-## Fitur utama
+## Fitur
 
-- Hero section yang menjual jasa secara jelas dan modern
-- Daftar layanan dengan estimasi biaya mulai
-- Form booking yang bisa diisi untuk jadwal teknisi
-- Validasi dasar form pada browser dan tombol WhatsApp konfirmasi
-- Bagian keunggulan, testimoni, serta FAQ untuk membangun trust pelanggan
-- Navigasi dengan tombol menu dan CTA ke WhatsApp
+- Landing page responsif dengan informasi layanan, manfaat, proses kerja, ulasan, FAQ interaktif, dan CTA.
+- Navigasi desktop dan menu navigasi mobile yang dapat diakses.
+- Halaman booking dengan URL hash `#booking`, sehingga bisa dibuka langsung dan navigasi browser tetap bekerja.
+- Katalog layanan terpusat. Layanan yang dipilih dari beranda otomatis dibawa ke form booking.
+- Validasi kolom wajib, validasi dasar nomor telepon, serta tanggal kunjungan minimal hari ini.
+- Ringkasan permintaan dan tautan WhatsApp yang menyertakan semua informasi booking.
+- Metadata Bahasa Indonesia dan fokus keyboard yang terlihat.
 
-## Teknologi yang digunakan
+## Teknologi
 
-- React 19
+- React 19 dan React DOM
 - Vite 8
-- Lucide React untuk ikon
-- CSS murni untuk styling custom
+- Tailwind CSS 4 melalui plugin Vite
+- Lucide React
+- CSS untuk font dan sentuhan global
 
-## Cara menjalankan
+## Menjalankan aplikasi
 
-1. Install dependency:
-   ```bash
-   npm install
-   ```
-2. Jalankan aplikasi di mode development:
-   ```bash
-   npm run dev
-   ```
-3. Build untuk production:
-   ```bash
-   npm run build
-   ```
-4. Preview hasil build:
-   ```bash
-   npm run preview
-   ```
+Persyaratan: Node.js yang kompatibel dengan Vite 8 dan npm.
+
+```bash
+npm install
+npm run dev
+```
+
+Perintah lain:
+
+```bash
+npm run lint     # pemeriksaan ESLint
+npm run build    # build production ke dist/
+npm run preview  # preview build production secara lokal
+```
 
 ## Struktur proyek
 
-```bash
+```text
 src/
-  App.jsx
-  App.css
-  main.jsx
+  App.jsx                    # navigasi aplikasi dan state layanan terpilih
+  index.css                  # style global dan impor font
+  main.jsx                   # entry point React
+  data/
+    services.js              # katalog layanan dan konfigurasi WhatsApp
   components/
-    Home.jsx
-    Booking.jsx
-    Navbar.jsx
+    Booking.jsx              # formulir booking, validasi, ringkasan
     Footer.jsx
+    Home.jsx
+    Navbar.jsx
+public/
+docs/
+  booking-flow.md            # detail alur booking dan batasan
 ```
 
-## Catatan
+## Konfigurasi sebelum rilis
 
-- Nomor WhatsApp di landing page masih berupa contoh default untuk kebutuhan demo.
-- Anda dapat mengganti teks, harga, dan kontak sesuai kebutuhan bisnis nyata.
-- Form booking saat ini fokus pada UX frontend, belum terhubung ke backend atau database.
+1. Ganti `WHATSAPP_NUMBER` dalam `src/data/services.js` dengan nomor bisnis berformat internasional tanpa tanda `+`, spasi, atau tanda baca. Nilai demo saat ini bukan nomor operasional yang dijamin.
+2. Verifikasi harga, cakupan layanan, jam operasional, area, garansi, ulasan, serta materi promosi terhadap informasi bisnis yang sebenarnya.
+3. Font DM Sans dimuat dari Google Fonts; siapkan fallback atau font yang di-host sendiri jika aplikasi harus berjalan tanpa koneksi eksternal.
 
-## Pengembangan selanjutnya
+## Cara kerja dan batasan booking
 
-- Integrasi backend untuk menyimpan booking ke database
-- Kirim data form ke WhatsApp atau email secara otomatis
-- Tambahkan CMS sederhana untuk mengelola layanan dan promo
-- Upgrade ke TypeScript untuk skalabilitas proyek
+Form saat ini berjalan di sisi browser saja. Pengiriman menampilkan permintaan lokal lalu menyediakan tautan untuk pelanggan membuka WhatsApp dan mengirim ringkasan. Tidak ada penyimpanan database, notifikasi otomatis, pengecekan ketersediaan jadwal, maupun konfirmasi jadwal dari server. Jadwal belum terkonfirmasi sampai tim membalas pelanggan.
+
+Untuk detail validasi, alur, batasan, dan rekomendasi integrasi backend, baca [docs/booking-flow.md](docs/booking-flow.md).

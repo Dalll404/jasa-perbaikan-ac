@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -13,6 +14,15 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  color: #172016;
+  background: #d9ed77;
 }
 
 button,

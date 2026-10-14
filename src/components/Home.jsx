@@ -14,29 +14,22 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import heroImage from "../assets/images-home.webp";
+import { getWhatsAppUrl, services as serviceCatalog } from "../data/services";
 
 const services = [
+  { ...serviceCatalog[0], number: "01", icon: Fan },
   {
-    number: "01",
-    title: "Cuci AC",
-    detail:
-      "Bersihkan filter, evaporator, dan saluran air agar hembusan kembali lega.",
-    price: "75 ribu",
-    icon: Fan,
-  },
-  {
+    ...serviceCatalog[2],
     number: "02",
-    title: "AC tidak dingin",
-    detail: "Pengecekan menyeluruh sebelum perbaikan—bukan asal tambah freon.",
-    price: "Cek dulu",
+    title: "AC tidak dingin / bocor",
+    price: "100 ribu",
     icon: Wrench,
   },
   {
+    ...serviceCatalog[1],
     number: "03",
-    title: "Bocor & berisik",
-    detail:
-      "Cari sumber masalah, rapikan instalasi, dan pastikan unit bekerja normal.",
-    price: "100 ribu",
+    title: "Isi / tambah freon",
+    price: "150 ribu",
     icon: Sparkles,
   },
 ];
@@ -150,7 +143,7 @@ export function Home({ setActivePage }) {
 
               <a
                 className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 transition hover:text-slate-900"
-                href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20konsultasi%20servis%20AC"
+                href={getWhatsAppUrl("Halo, saya mau konsultasi servis AC")}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -281,47 +274,49 @@ export function Home({ setActivePage }) {
         </div>
 
         <div className="overflow-hidden rounded-[26px] border border-slate-200 bg-white">
-          {services.map(({ number, title, detail, price, icon: Icon }) => (
-            <article
-              key={number}
-              className="grid items-center gap-4 border-b border-slate-200 px-4 py-5 last:border-b-0 sm:px-5 lg:grid-cols-[42px_52px_minmax(0,1fr)_130px_44px] lg:gap-6 lg:px-6"
-            >
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
-                {number}
-              </span>
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-[#f7f8f3] text-[#5f7b32]">
-                <Icon size={20} strokeWidth={1.8} />
-              </span>
-              <div>
-                <h3 className="text-lg font-bold tracking-[-0.05em] text-slate-900">
-                  {title}
-                </h3>
-                <p className="mt-1 text-[11px] leading-6 text-slate-500">
-                  {detail}
-                </p>
-              </div>
-              <span className="text-[10px] font-medium uppercase tracking-[0.08em] text-slate-500">
-                Mulai{" "}
-                <strong className="text-sm font-bold tracking-[-0.04em] text-slate-800">
-                  {price}
-                </strong>
-              </span>
-              <button
-                className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-900 hover:text-white"
-                aria-label={`Pesan layanan ${title}`}
-                onClick={() => setActivePage("booking")}
+          {services.map(
+            ({ number, title, detail, price, label, icon: Icon }) => (
+              <article
+                key={number}
+                className="grid items-center gap-4 border-b border-slate-200 px-4 py-5 last:border-b-0 sm:px-5 lg:grid-cols-[42px_52px_minmax(0,1fr)_130px_44px] lg:gap-6 lg:px-6"
               >
-                <ArrowRight size={17} />
-              </button>
-            </article>
-          ))}
+                <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
+                  {number}
+                </span>
+                <span className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-[#f7f8f3] text-[#5f7b32]">
+                  <Icon size={20} strokeWidth={1.8} />
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold tracking-[-0.05em] text-slate-900">
+                    {title}
+                  </h3>
+                  <p className="mt-1 text-[11px] leading-6 text-slate-500">
+                    {detail}
+                  </p>
+                </div>
+                <span className="text-[10px] font-medium uppercase tracking-[0.08em] text-slate-500">
+                  Mulai{" "}
+                  <strong className="text-sm font-bold tracking-[-0.04em] text-slate-800">
+                    {price}
+                  </strong>
+                </span>
+                <button
+                  className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-900 hover:text-white"
+                  aria-label={`Pesan layanan ${title}`}
+                  onClick={() => setActivePage("booking", label)}
+                >
+                  <ArrowRight size={17} />
+                </button>
+              </article>
+            ),
+          )}
         </div>
 
         <p className="mt-5 text-[10px] text-slate-500">
           Punya keluhan lain?{" "}
           <a
             className="inline-flex items-center gap-1 font-bold text-slate-700"
-            href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20layanan%20servis%20AC"
+            href={getWhatsAppUrl("Halo, saya mau tanya layanan servis AC")}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -414,7 +409,7 @@ export function Home({ setActivePage }) {
 
           <div className="inline-flex items-center gap-2 rounded-full bg-[#edf3da] px-4 py-2 text-[11px] font-bold text-[#41552c]">
             <Star size={13} fill="currentColor" />
-            4.9/5 dari ribuan layanan
+            Cerita pelanggan
           </div>
         </div>
 

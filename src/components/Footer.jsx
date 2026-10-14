@@ -1,4 +1,5 @@
 import { Fan, MapPin, MessageCircle, Clock3 } from "lucide-react";
+import { getWhatsAppUrl } from "../data/services";
 
 export function Footer({ setActivePage }) {
   return (
@@ -34,7 +35,10 @@ export function Footer({ setActivePage }) {
               <a
                 className="block transition hover:text-[#d9ed77]"
                 href="#layanan"
-                onClick={() => setActivePage("home")}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setActivePage("home", "#layanan");
+                }}
               >
                 Layanan & estimasi biaya
               </a>
@@ -54,7 +58,7 @@ export function Footer({ setActivePage }) {
             <div className="space-y-2 text-xs text-slate-400">
               <a
                 className="flex items-center gap-2 transition hover:text-[#d9ed77]"
-                href="https://wa.me/6281234567890"
+                href={getWhatsAppUrl("Halo, saya ingin konsultasi servis AC")}
                 target="_blank"
                 rel="noopener noreferrer"
               >
