@@ -1,6 +1,6 @@
 # AirCool Pro
 
-Landing page dan alur permintaan jadwal untuk layanan servis AC panggilan. Dibangun dengan React 19, Vite, Tailwind CSS 4, dan Lucide React.
+Landing page dan alur permintaan jadwal untuk layanan servis AC panggilan. Dibangun dengan React 19, Vite, Tailwind CSS 4, Framer Motion, dan Lucide React.
 
 ## Fitur
 
@@ -11,12 +11,15 @@ Landing page dan alur permintaan jadwal untuk layanan servis AC panggilan. Diban
 - Validasi kolom wajib, validasi dasar nomor telepon, serta tanggal kunjungan minimal hari ini.
 - Ringkasan permintaan dan tautan WhatsApp yang menyertakan semua informasi booking.
 - Metadata Bahasa Indonesia dan fokus keyboard yang terlihat.
+- Tata letak responsif untuk ponsel, tablet, dan desktop dengan area sentuh yang nyaman serta form yang mudah dibaca.
+- Animasi ringan pada hero, formulir booking, dan bagian informasi; mengikuti preferensi `prefers-reduced-motion`.
 
 ## Teknologi
 
 - React 19 dan React DOM
 - Vite 8
 - Tailwind CSS 4 melalui plugin Vite
+- Framer Motion untuk transisi dan animasi berbasis viewport
 - Lucide React
 - CSS untuk font dan sentuhan global
 
@@ -42,7 +45,7 @@ npm run preview  # preview build production secara lokal
 ```text
 src/
   App.jsx                    # navigasi aplikasi dan state layanan terpilih
-  index.css                  # style global dan impor font
+  index.css                  # style global, impor font, dan preferensi reduced motion
   main.jsx                   # entry point React
   data/
     services.js              # katalog layanan dan konfigurasi WhatsApp
@@ -67,3 +70,9 @@ docs/
 Form saat ini berjalan di sisi browser saja. Pengiriman menampilkan permintaan lokal lalu menyediakan tautan untuk pelanggan membuka WhatsApp dan mengirim ringkasan. Tidak ada penyimpanan database, notifikasi otomatis, pengecekan ketersediaan jadwal, maupun konfirmasi jadwal dari server. Jadwal belum terkonfirmasi sampai tim membalas pelanggan.
 
 Untuk detail validasi, alur, batasan, dan rekomendasi integrasi backend, baca [docs/booking-flow.md](docs/booking-flow.md).
+
+## Antarmuka responsif dan animasi
+
+Tailwind CSS 4 digunakan melalui plugin resmi Vite (`@tailwindcss/vite`). Sebagian besar tata letak dan tampilan komponen ditulis dengan utility class Tailwind. Framer Motion menangani animasi masuk pada hero/formulir, animasi hover/tap tombol, dan reveal bagian saat masuk viewport. Tidak diperlukan konfigurasi Tailwind tambahan di `vite.config.js` selain plugin yang sudah terpasang.
+
+Untuk aksesibilitas, animasi CSS global dikurangi saat sistem pengguna mengaktifkan `prefers-reduced-motion`. Pastikan animasi baru tetap dekoratif dan tidak menjadi satu-satunya cara menyampaikan informasi. Periksa tampilan setidaknya pada lebar ponsel 320–390 px, tablet, dan desktop setelah mengubah komponen.

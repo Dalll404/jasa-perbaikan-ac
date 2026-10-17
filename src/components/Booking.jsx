@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { getWhatsAppUrl, services } from "../data/services";
 
 const createInitialForm = (selectedService = "") => ({
@@ -16,6 +17,7 @@ const createInitialForm = (selectedService = "") => ({
 });
 
 export function Booking({ selectedService, setActivePage }) {
+  const shouldReduceMotion = useReducedMotion();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(() =>
     createInitialForm(selectedService),
@@ -59,7 +61,12 @@ export function Booking({ selectedService, setActivePage }) {
       aria-labelledby="booking-heading"
     >
       <div className="mx-auto max-w-4xl">
-        <div className="rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.06)] sm:p-8 lg:p-10">
+        <motion.div
+          className="rounded-[28px] border border-slate-200 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.06)] sm:p-8 lg:p-10"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           <button
             type="button"
             className="mb-6 inline-flex items-center gap-2 text-xs font-semibold text-slate-600 transition hover:text-slate-900"
@@ -132,7 +139,7 @@ export function Booking({ selectedService, setActivePage }) {
                     onChange={handleChange}
                     placeholder="Nama Anda"
                     autoComplete="name"
-                    className="rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                   />
                 </label>
                 <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-600">
@@ -146,7 +153,7 @@ export function Booking({ selectedService, setActivePage }) {
                     placeholder="08xx xxxx xxxx"
                     inputMode="tel"
                     autoComplete="tel"
-                    className="rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                   />
                   {phoneError && (
                     <span
@@ -169,7 +176,7 @@ export function Booking({ selectedService, setActivePage }) {
                   onChange={handleChange}
                   placeholder="Jalan, nomor rumah, kelurahan, dan patokan lokasi"
                   autoComplete="street-address"
-                  className="resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                  className="min-h-24 resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                 />
               </label>
 
@@ -180,7 +187,7 @@ export function Booking({ selectedService, setActivePage }) {
                     name="serviceType"
                     value={formData.serviceType}
                     onChange={handleChange}
-                    className="rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                   >
                     {services.map((service) => (
                       <option key={service.id} value={service.label}>
@@ -195,7 +202,7 @@ export function Booking({ selectedService, setActivePage }) {
                     name="acCount"
                     value={formData.acCount}
                     onChange={handleChange}
-                    className="rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                   >
                     <option>1 unit</option>
                     <option>2 unit</option>
@@ -216,7 +223,7 @@ export function Booking({ selectedService, setActivePage }) {
                     min={minDate}
                     value={formData.date}
                     onChange={handleChange}
-                    className="rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                    className="min-h-12 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                   />
                 </label>
                 <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-600">
@@ -242,19 +249,19 @@ export function Booking({ selectedService, setActivePage }) {
                   value={formData.notes}
                   onChange={handleChange}
                   placeholder="Contoh: AC netes air, merek AC, atau keluhan lainnya"
-                  className="resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
+                  className="min-h-20 resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#8ba24b] focus:outline-none focus:ring-4 focus:ring-[#8ba24b]/15"
                 />
               </label>
 
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-slate-700"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-slate-700"
               >
                 Kirim permintaan jadwal <ArrowRight size={16} />
               </button>
             </form>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

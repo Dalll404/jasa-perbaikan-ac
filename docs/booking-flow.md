@@ -23,6 +23,14 @@ Dokumen ini menjelaskan cara kerja form permintaan servis pada antarmuka saat in
 
 Daftar terpusat berada di `src/data/services.js`. Pertahankan `id` unik untuk setiap layanan serta `label` yang menjadi nilai pilihan di formulir. Beranda dan formulir booking membaca katalog yang sama.
 
+## Perilaku antarmuka
+
+- Form booking menggunakan tata letak satu kolom di ponsel dan dua kolom untuk kelompok field terkait pada layar yang lebih lebar.
+- Field dan tombol utama memiliki tinggi minimum yang memadai untuk interaksi sentuh.
+- Transisi tampilan dibuat dengan Framer Motion; animasi tidak mengubah validasi atau pengiriman data.
+- Preferensi sistem `prefers-reduced-motion` dihormati untuk mengurangi animasi CSS. Saat mengembangkan animasi tambahan, hindari menyembunyikan informasi penting di balik animasi.
+- Styling memakai utility Tailwind CSS 4 dan plugin Vite resmi.
+
 ## Pengembangan integrasi backend
 
 Untuk booking yang tersimpan, tambahkan endpoint backend dengan validasi server-side, kebijakan privasi/retensi data, proteksi spam, dan penanganan kegagalan jaringan. Jangan menganggap tampilan sukses lokal sebagai konfirmasi jadwal. Integrasi kalender dan notifikasi juga perlu berada di server.

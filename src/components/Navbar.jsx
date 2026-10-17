@@ -30,11 +30,12 @@ export function Navbar({ activePage, setActivePage }) {
         </button>
 
         <nav
+          id="primary-navigation"
           className={`${menuOpen ? "absolute inset-x-0 top-full flex flex-col items-stretch gap-0 border-b border-slate-200 bg-[#f8f8f3] px-4 py-2 shadow-lg md:static md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0 md:shadow-none" : "hidden items-center gap-7 md:flex"}`}
           aria-label="Navigasi utama"
         >
           <button
-            className={`text-sm font-medium transition ${
+            className={`min-h-11 text-left text-sm font-medium transition md:min-h-0 ${
               activePage === "home"
                 ? "text-slate-900"
                 : "text-slate-600 hover:text-slate-900"
@@ -44,7 +45,7 @@ export function Navbar({ activePage, setActivePage }) {
             Beranda
           </button>
           <button
-            className="py-3 text-left text-sm font-medium text-slate-600 transition hover:text-slate-900 md:py-0"
+            className="min-h-11 py-3 text-left text-sm font-medium text-slate-600 transition hover:text-slate-900 md:min-h-0 md:py-0"
             onClick={() => {
               navigate("home", "#layanan");
             }}
@@ -52,7 +53,7 @@ export function Navbar({ activePage, setActivePage }) {
             Layanan
           </button>
           <button
-            className={`text-sm font-medium transition ${
+            className={`min-h-11 text-left text-sm font-medium transition md:min-h-0 ${
               activePage === "booking"
                 ? "text-slate-900"
                 : "text-slate-600 hover:text-slate-900"
@@ -65,7 +66,7 @@ export function Navbar({ activePage, setActivePage }) {
 
         <div className="flex items-center gap-2">
           <a
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-[11px] font-bold text-slate-700 transition hover:border-slate-900 hover:bg-slate-900 hover:text-white sm:px-4"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-[11px] font-bold text-slate-700 transition hover:border-slate-900 hover:bg-slate-900 hover:text-white sm:px-4"
             href={getWhatsAppUrl("Halo, saya mau konsultasi servis AC")}
             target="_blank"
             rel="noopener noreferrer"
@@ -78,6 +79,7 @@ export function Navbar({ activePage, setActivePage }) {
             className="grid h-10 w-10 place-items-center rounded-lg border border-slate-300 bg-white text-slate-700 md:hidden"
             aria-label={menuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
             aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
             onClick={() => setMenuOpen((open) => !open)}
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
