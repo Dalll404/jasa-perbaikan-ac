@@ -41,6 +41,16 @@ select {
   -webkit-tap-highlight-color: transparent;
 }
 
+@keyframes fan-loop {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fan-loop {
+  animation: fan-loop 8s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

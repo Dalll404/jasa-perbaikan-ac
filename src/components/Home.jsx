@@ -206,7 +206,7 @@ export function Home({ setActivePage }) {
 
             <div className="absolute -bottom-3 left-3 flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/95 px-3 py-2.5 shadow-xl backdrop-blur-sm sm:bottom-0 sm:left-6 sm:gap-3 sm:px-4 sm:py-3">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-[#d9ed77] text-slate-900">
-                <Fan size={18} />
+                <Fan className="animate-fan-loop" size={18} />
               </span>
               <div>
                 <strong className="block text-[11px] font-bold text-slate-900">
